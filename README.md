@@ -1,5 +1,7 @@
 # notes_app_local_storage
 
+working demo video:  https://youtu.be/iDjvRr8agOA
+
 A new Flutter project.
 
 ## Getting Started
