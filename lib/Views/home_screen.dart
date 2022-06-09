@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notes_app_local_storage/Controller/controller.dart';
 import 'package:notes_app_local_storage/Models/custom_container.dart';
+import 'package:notes_app_local_storage/Views/edit_note_screen.dart';
 import 'package:notes_app_local_storage/Views/notes_screen.dart';
 
 import '../Models/notes_model.dart';
@@ -47,10 +48,16 @@ class _HomeScreenState extends State<HomeScreen> {
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context,index){
-                return CustomContainer(
-                  title:snapshot.data![index].title, 
-                  desc: snapshot.data![index].desc,
-                  );
+                return GestureDetector(
+                  onTap: (){
+                    Get.to(()=>EditNoteScreen(title: snapshot.data![index].title, desc: snapshot.data![index].desc));
+                  
+                  },
+                  child: CustomContainer(
+                    title:snapshot.data![index].title, 
+                    desc: snapshot.data![index].desc,
+                    ),
+                );
               },
             );
           }

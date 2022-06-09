@@ -5,18 +5,31 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:notes_app_local_storage/Controller/controller.dart';
 import 'package:notes_app_local_storage/Models/notes_model.dart';
-import 'package:notes_app_local_storage/Views/home_screen.dart';
 
-class NotesScreen extends StatefulWidget {
-  const NotesScreen({Key? key}) : super(key: key);
+import 'home_screen.dart';
+
+class EditNoteScreen extends StatefulWidget {
+  final String title;
+  final String desc;
+  const EditNoteScreen({Key? key,
+  required this.title,
+  required this.desc,
+  }) : super(key: key);
 
   @override
-  State<NotesScreen> createState() => _NotesScreenState();
+  State<EditNoteScreen> createState() => _EditNoteScreenState();
 }
 
-class _NotesScreenState extends State<NotesScreen> {
-  TextEditingController titleController = TextEditingController();
-  TextEditingController descController = TextEditingController();
+class _EditNoteScreenState extends State<EditNoteScreen> {
+  TextEditingController titleController=TextEditingController();
+  TextEditingController descController=TextEditingController();
+
+  @override
+  void initState() {
+    titleController.text=widget.title;
+    descController.text=widget.desc;
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -25,18 +38,16 @@ class _NotesScreenState extends State<NotesScreen> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 50,
-              ),
-              Padding(
+      body: Column(
+        children: [
+          SizedBox(
+            height: 100,
+          ),
+          Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Container(
@@ -55,7 +66,7 @@ class _NotesScreenState extends State<NotesScreen> {
                     ],
                   ),
                   child: TextField(
-                    controller: titleController,
+                    controller:titleController,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
@@ -76,9 +87,7 @@ class _NotesScreenState extends State<NotesScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
+
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -126,20 +135,15 @@ class _NotesScreenState extends State<NotesScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: MaterialButton(
                   color: Colors.purpleAccent,
-                  onPressed: () {
-                    if (titleController.text.isNotEmpty &&
-                        descController.text.isNotEmpty) {
-                      NotesController.insert(Notes(
-                          title: titleController.text,
-                          desc: descController.text));
-                    }
+                  onPressed: () async{
+                    await NotesController.updateNotes(Notes(title: titleController.text, desc: descController.text),widget.desc);
                     Get.offAll(() => HomeScreen());
                   },
                   child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: Center(
                           child: Text(
-                        "Add Note",
+                        "Edit Note",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -147,9 +151,7 @@ class _NotesScreenState extends State<NotesScreen> {
                       ))),
                 ),
               ),
-            ],
-          ),
-        ),
+        ],
       ),
     );
   }

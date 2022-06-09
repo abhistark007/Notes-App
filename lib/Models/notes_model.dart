@@ -29,6 +29,14 @@ class NotesOutput{
     required this.desc,
   });
 
+  Map<String,dynamic> toMap(){
+    return{
+      "id":id,
+      "title":title,
+      "desc":desc,
+    };
+  }
+
   // NotesOutput jsonToObject(Map<String,dynamic> map){
   //   return NotesOutput(id: map["id"], title: map["title"], desc: map["desc"]);
   // }

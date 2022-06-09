@@ -34,4 +34,16 @@ class NotesController {
   });
   }
 
+  //updating data
+  static Future updateNotes(Notes notes,String oldDesc)async{
+    final db=await NotesController.getMyDB();
+     await db.update(
+    'notes',
+    notes.toMap(),
+    where: 'desc = ?',
+    // Pass the Dog's id as a whereArg to prevent SQL injection.
+    whereArgs: [oldDesc],
+  );
+  }
+
 }
