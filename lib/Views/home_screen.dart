@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
       
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +56,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CustomContainer(
                     title:snapshot.data![index].title, 
                     desc: snapshot.data![index].desc,
+                    onpressed: () async{
+                      await NotesController.deleteNotes(Notes(title: snapshot.data![index].title, desc: snapshot.data![index].desc));
+                      setState(() {
+                        
+                      });
+                    },
                     ),
                 );
               },

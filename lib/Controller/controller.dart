@@ -45,5 +45,18 @@ class NotesController {
     whereArgs: [oldDesc],
   );
   }
+  
+
+  //deleting data
+  static Future deleteNotes(Notes notes) async{
+    final db=await NotesController.getMyDB();
+    await db.delete(
+    'notes',
+    // Use a `where` clause to delete a specific dog.
+    where: 'desc = ?',
+    // Pass the Dog's id as a whereArg to prevent SQL injection.
+    whereArgs: [notes.desc],
+  );
+  }
 
 }
