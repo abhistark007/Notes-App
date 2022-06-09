@@ -37,6 +37,7 @@ dependencies:
   sqflite:
   path:
   get:
+  font_awesome_flutter:
 
 dev_dependencies:
   flutter_test:

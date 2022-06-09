@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notes_app_local_storage/Controller/controller.dart';
+import 'package:notes_app_local_storage/Models/custom_container.dart';
 import 'package:notes_app_local_storage/Views/notes_screen.dart';
 
 import '../Models/notes_model.dart';
@@ -15,6 +16,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,9 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context,index){
-                return Container(
-                  child: Text(snapshot.data![index].title),
-                );
+                return CustomContainer(
+                  title:snapshot.data![index].title, 
+                  desc: snapshot.data![index].desc,
+                  );
               },
             );
           }
